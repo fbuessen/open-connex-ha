@@ -1,0 +1,128 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Open Connex HA",
+        "description": "Enter the controller address, such as {example_address}, and an API token generated in the controller's Settings → Security. Use the API token, not your web password. Setup only reads saved settings. A trusted PEM CA certificate is optional for HTTPS connections.",
+        "data": {
+          "origin": "Controller address",
+          "token": "API token",
+          "ca_certificate": "Trusted CA certificate (PEM, optional)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Update Connex credentials",
+        "description": "Generate or copy an API token in the controller's Settings → Security and enter it for the same controller. A web password cannot be used here. Previous commands will not be repeated.",
+        "data": {
+          "origin": "Controller address",
+          "token": "API token",
+          "ca_certificate": "Trusted CA certificate (PEM, optional)"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Open Connex HA",
+        "description": "Update the connection to the same controller. Re-enter its API token from Settings → Security; it is required and is never prefilled. Add a separate integration for a replacement controller.",
+        "data": {
+          "origin": "Controller address",
+          "token": "API token",
+          "ca_certificate": "Trusted CA certificate (PEM, optional)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the controller. Check its address, availability, and HTTPS certificate.",
+      "invalid_auth": "A valid API token is required. Generate or copy one in the controller's Settings → Security; do not use the web password.",
+      "forbidden": "The controller forbids this operation.",
+      "incompatible": "The controller returned an unsupported API response.",
+      "invalid_origin": "Enter an HTTP or HTTPS address without an API path, query, or embedded credentials.",
+      "invalid_certificate": "Enter a valid PEM CA certificate or leave the field blank."
+    },
+    "abort": {
+      "already_configured": "This controller is already configured.",
+      "unique_id_mismatch": "This address belongs to a different controller.",
+      "reauth_successful": "Credentials updated.",
+      "reconfigure_successful": "Connection updated."
+    }
+  },
+  "entity": {
+    "climate": {
+      "zone": {
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "normal": "Normal",
+              "eco": "Eco"
+            }
+          }
+        }
+      }
+    },
+    "number": {
+      "eco_offset": {
+        "name": "Eco offset"
+      }
+    },
+    "sensor": {
+      "health": {
+        "name": "Controller health",
+        "state": {
+          "ok": "Ready",
+          "degraded": "Degraded"
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "invalid_value": {
+      "message": "Use a temperature within the zone's displayed limits in 0.5° steps in its native unit. In Eco mode, the displayed temperature minus the Eco offset must be 10–30 °C or 50–86 °F. Eco offsets are −9 to +9 in whole native degrees."
+    },
+    "unsupported_mode": {
+      "message": "Connex supports heating with Normal or Eco presets. Off, on, and toggle commands are unavailable."
+    },
+    "unit_changed": {
+      "message": "The zone's unit changed. Review the refreshed values before issuing a new command."
+    },
+    "closing": {
+      "message": "The integration is unloading. No new command was sent."
+    },
+    "invalid_auth": {
+      "message": "Update the controller's API token in the integration settings. This command will not be repeated."
+    },
+    "forbidden": {
+      "message": "The controller forbids this operation."
+    },
+    "not_found": {
+      "message": "This zone is no longer available on the controller."
+    },
+    "conflict": {
+      "message": "The controller has conflicting work for this zone, such as active pairing. Wait until it finishes before issuing another command."
+    },
+    "rate_limited": {
+      "message": "The controller is at request capacity. This command will not be repeated automatically."
+    },
+    "unavailable": {
+      "message": "The controller is not ready to accept commands. Check whether it is in standby or has a local fault."
+    },
+    "cannot_connect": {
+      "message": "Could not read the controller. No control request was sent."
+    },
+    "incompatible": {
+      "message": "The controller returned an unsupported API response."
+    },
+    "server_error": {
+      "message": "The controller reported an error. This command will not be repeated automatically."
+    },
+    "identity_mismatch": {
+      "message": "The configured address belongs to another controller. Reconfigure the connection before sending commands."
+    },
+    "unknown_outcome": {
+      "message": "The command's acceptance is unknown. Saved settings will be refreshed, but the command will not be repeated. Check before issuing another command."
+    }
+  },
+  "issues": {
+    "identity_mismatch": {
+      "title": "Connex controller identity changed",
+      "description": "The configured address now returns a different controller ID. Commands are disabled. Reconfigure this integration with the original controller's address, or add the replacement as a separate integration."
+    }
+  }
+}

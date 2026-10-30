@@ -1,0 +1,14 @@
+{
+  "domain": "open_connex_ha",
+  "name": "Open Connex HA",
+  "codeowners": [
+    "@fbuessen"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/fbuessen/open-connex-ha",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/fbuessen/open-connex-ha/issues",
+  "requirements": [],
+  "version": "0.2.0"
+}
